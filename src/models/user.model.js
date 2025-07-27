@@ -1,7 +1,6 @@
 import {model,Schema} from "mongoose";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { use } from "react";
 
 const userSchema = new Schema(
   {
@@ -62,14 +61,16 @@ const userSchema = new Schema(
   }
 )
 
-userSchema.pre("save", async function (next) {
+userSchema.pre("save", async function (next) {    //this is used to encrypt the password before saving it into the database
   if(!this.isModified("password")) return next();
 
   this.password = bcrypt.hash(this.password, 10)
   next();
 })
 
-userSchema.methods.isPasswordCorrect = async function (password) {
+
+//this is used to compare the password inside the database and the the password enter by the user
+userSchema.methods.isPasswordCorrect = async function (password) {  
   return await bcrypt.compare(password, this.password)
 }
 
