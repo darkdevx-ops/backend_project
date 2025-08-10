@@ -17,4 +17,13 @@ app.use(express.static("public"))   //for storing file and folder in public fold
 
 app.use(cookieParser()) //for accesing cookie and set cookie
 
+
+//routes import
+
+import userRouter from "./routes/user.route.js"
+
+//routes declaration
+
+app.use("/api/v1/users", userRouter)
+
 export { app }
