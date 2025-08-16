@@ -36,7 +36,6 @@ const userSchema = new Schema(
 
     coverImage: {
       type : String , // cloudnary link
-      required : true
     },
 
     watchHistory : {
@@ -64,7 +63,7 @@ const userSchema = new Schema(
 userSchema.pre("save", async function (next) {    //this is used to encrypt the password before saving it into the database
   if(!this.isModified("password")) return next();
 
-  this.password = bcrypt.hash(this.password, 10)
+  this.password = await bcrypt.hash(this.password, 10)
   next();
 })
 
