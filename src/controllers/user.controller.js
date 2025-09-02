@@ -133,7 +133,7 @@ const loginUser = asyncHandler(async(req , res) =>{
 
   const {userName, email, password} = req.body
 
-  if(!userName || !email) {
+  if(!(userName || email)) {
     throw new apiError(400, "username or email is required")
   }
 
@@ -189,6 +189,11 @@ const logoutUser = asyncHandler( async(req, res) =>{
       new : true
     }
 )
+
+  const options = {
+    httpOnly :true,
+    secure : true
+  }
 
   return res
   .status(200)

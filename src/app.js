@@ -26,4 +26,13 @@ import userRouter from "./routes/user.route.js"
 
 app.use("/api/v1/users", userRouter)
 
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+    return res.status(400).json({ error: 'Invalid JSON' });
+  }
+  next(err);
+});
+
 export { app }
