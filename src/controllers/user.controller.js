@@ -42,7 +42,6 @@ const registerUser = asyncHandler( async (req , res) => {
   //1st get user details
 
   const {userName, email, fullName, password} = req.body
-  console.log("email :", email)
 
 
   //2nd validation
